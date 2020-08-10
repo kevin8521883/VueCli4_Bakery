@@ -1,0 +1,21 @@
+.coupon{
+  .left{
+    width: 30%;
+    background-color: #f76260;
+    &::before{
+      content: '';
+      position: absolute !important;
+      height: 100%;
+      width: 6px;
+      background-image: radial-gradient(circle at 0px 10px, white 6px, #f76260 6px);
+      background-size: 6px 20px;
+    }
+  }
+  .right{
+    width: 70%;
+    border: 1px solid #ddd;
+  }
+}
+.cobyCoupon:hover{
+  cursor: pointer;
+}

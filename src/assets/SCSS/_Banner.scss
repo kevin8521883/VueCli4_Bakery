@@ -1,0 +1,27 @@
+.swiper-banner {
+  height: 550px;
+  @media (max-width:768px) {
+    height: 400px;
+  }
+}
+.banner1{
+  background: url(https://images.unsplash.com/photo-1513790385082-670db4615c12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80) center;
+  background-size: cover;
+}
+.banner2{
+  background: url(https://images.unsplash.com/photo-1560910615-9eaa2e704e63?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80) center;
+  background-size: cover;
+
+}
+.banner3{
+  background: url(https://images.unsplash.com/photo-1481233673589-df886804ee96?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80)center;
+  background-size: cover;
+}
+.bg-wooden {
+  background-image: url(https://upload.cc/i1/2020/07/13/yoECpI.jpg);
+  background-attachment: fixed;
+}
+.bg-dessert {
+  background-image: url(https://upload.cc/i1/2020/07/04/xM5R72.jpg);
+  background-position: bottom;
+}

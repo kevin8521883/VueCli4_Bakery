@@ -1,0 +1,16 @@
+.header-navbtn{
+  color: rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid transparent;
+  transition: all .5s;
+  &:hover{
+    color: $primary;
+    border-bottom: 2px $primary solid;
+  }
+}
+.header-navbtn.active{
+  color: $primary;
+  border-bottom: 2px $primary solid;
+}
+.navbar-toggle-bar{
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}

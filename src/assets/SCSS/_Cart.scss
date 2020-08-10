@@ -1,0 +1,40 @@
+.cart{
+  z-index: 10;
+  position: fixed;
+  bottom: 60px;
+  right: 10px;
+  width: 55px;
+  height: 55px;
+  color:$primary ;
+  background-color:white;
+  box-shadow: 1px 1px 3px  $primary;
+  border: 1px $primary solid;
+  border-radius: 50%;
+  transition: all .3s;
+  .badge{
+    position: absolute;
+    top: -5px;
+    right: -5px;
+  } 
+}
+.gotop {
+  z-index: 10;
+  position: fixed;
+  bottom: 20px;
+  right: 22px;
+  width: 30px;
+  height: 30px;
+  color:$primary ;
+  background-color:white;
+  box-shadow: 1px 1px 3px  $primary;
+  border: 1px $primary solid;
+  border-radius: 50%;
+  transition: all .3s;
+  display: none;
+
+}
+.gotop:hover,.cart:hover{
+  color: white ;
+  background-color: $primary;
+  cursor: pointer;
+}

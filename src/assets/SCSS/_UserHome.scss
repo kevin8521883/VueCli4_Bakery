@@ -1,0 +1,39 @@
+.box {
+  height: 200px;
+  width: 200px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+}
+.box-1 {
+  background-image: url(https://images.unsplash.com/photo-1568121581570-a30e94219113?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80);
+}
+.box-2 {
+  background-image: url(https://images.unsplash.com/flagged/photo-1561668038-2742fcef75d7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80);
+}
+.box-3 {
+  background-image: url(https://images.pexels.com/photos/1740893/pexels-photo-1740893.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+}
+.h3-title {
+  position: relative;
+  @media (min-width: 768px) {
+    ::before,
+     ::after {
+      content: "";
+      position: absolute;
+      border-top: 1px solid #979797;
+      top: 50%;
+      width: 25%;
+    }
+    ::before {
+      left: 10%;
+    }
+    ::after {
+      right: 10%;
+    }
+  }
+}
+.card-round{
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius:  8px;
+}
