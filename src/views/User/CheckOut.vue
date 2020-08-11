@@ -89,27 +89,26 @@ export default {
       orderId: '',
       order: {
         user: {}
-      },
-      isLoading: false
+      }
     }
   },
   methods: {
     getOrder () {
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updataLoading', true)
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`
       vm.$http.get(api).then((res) => {
         vm.order = res.data.order
-        vm.isLoading = false
+        vm.$store.dispatch('updataLoading', false)
       })
     },
     payOrder () {
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updataLoading', true)
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`
       vm.$http.post(api).then((res) => {
         vm.getOrder()
-        vm.isLoading = false
+        vm.$store.dispatch('updataLoading', false)
       })
     }
   },
@@ -117,6 +116,11 @@ export default {
     const vm = this
     vm.orderId = vm.$route.params.orderId
     vm.getOrder()
+  },
+  computed: {
+    isLoading () {
+      return this.$store.state.isLoading
+    }
   }
 }
 </script>

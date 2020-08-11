@@ -51,8 +51,8 @@
                   </td>
                   <td class="text-nowrap align-middle">
                     <select
-                      v-model="item.qty"
-                      @change="changeCartNum(item.qty,item.id ,item.product_id)"
+                     :value="item.qty"
+                      @change="e => changeCartNum(item.id, item.product_id, e)"
                     >
                       <option :value="num" v-for="(num) in 10" :key="num">{{ num }}</option>
                     </select>
@@ -220,6 +220,25 @@ export default {
     getCart () {
       this.$store.dispatch('getCart')
     },
+    delCart (item) {
+      this.$store.dispatch('delCart', item)
+    },
+    changeCartNum (orderId, id, e) {
+      const vm = this
+      this.$store.dispatch('updataLoading', true)
+      const delApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${orderId}`
+      const addApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      const productItem = {
+        product_id: id,
+        qty: e.target.value
+      }
+      vm.$http.delete(delApi).then(res => {
+        vm.$http.post(addApi, { data: productItem }).then(res => {
+          vm.getCart()
+          this.$store.dispatch('updataLoading', false)
+        })
+      })
+    },
     useCoupons () {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`
@@ -239,37 +258,17 @@ export default {
       vm.$validator.validate().then(res => {
         if (res) {
           vm.$http.post(api, { data: vm.form }).then(res => {
-            vm.$bus.$emit('upDataCart')
+            vm.$store.dispatch('getCart')
             vm.$router.push(`/checkout/${res.data.orderId}`)
           })
         } else {
-          vm.$bus.$emit('message:push', '欄位不得為空', 'danger')
+          vm.$store.dispatch('updateMessage', { message: '欄位不得為空', status: 'danger' })
         }
       })
-    },
-    delCart (item) {
-      this.$store.dispatch('delCart', item)
     },
     goShop () {
       const vm = this
       vm.$router.push('/products')
-    },
-    changeCartNum (num, orderId, id) {
-      // this.$store.dispatch('changeCartNum', { num: num, orderId: orderId, id: id })
-      const vm = this
-      this.$store.dispatch('updataLoading', true)
-      const delApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${orderId}`
-      const addApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
-      const productItem = {
-        product_id: id,
-        qty: num
-      }
-      vm.$http.delete(delApi).then(res => {
-        vm.$http.post(addApi, { data: productItem }).then(res => {
-          vm.getCart()
-          this.$store.dispatch('updataLoading', false)
-        })
-      })
     }
   },
   created () {

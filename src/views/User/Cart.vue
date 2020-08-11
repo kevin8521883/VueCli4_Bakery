@@ -85,9 +85,6 @@ export default {
   data () {
     return {
       hidden: false,
-      // cart: {
-      //   carts: {}
-      // },
       isLoading: false
     }
   },
@@ -99,14 +96,6 @@ export default {
       this.$store.dispatch('getCart')
     },
     delCart (item) {
-      // const vm = this
-      // vm.isLoading = true
-      // const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item.id}`
-      // vm.$http.delete(api).then(res => {
-      //   vm.$store.dispatch('updateMessage', { message: `已將 ${item.product.title} 從購物車中刪除`, status: 'danger' })
-      //   vm.getCart()
-      //   vm.isLoading = false
-      // })
       this.$store.dispatch('delCart', item)
     },
     goShop () {
