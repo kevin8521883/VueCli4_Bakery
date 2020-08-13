@@ -125,9 +125,6 @@ export default {
     const vm = this
     vm.getCart()
     vm.hideenCart()
-    vm.$bus.$on('upDataCart', () => {
-      vm.getCart()
-    })
     $(window).scroll(function () {
       if ($(this).scrollTop() > 400) {
         $('.gotop').fadeIn()

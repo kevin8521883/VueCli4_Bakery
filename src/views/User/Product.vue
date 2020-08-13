@@ -128,10 +128,9 @@ export default {
   },
   data () {
     return {
-      // isLoading: false,
       productId: '',
-      product: {},
-      products: []
+      product: {}
+      // products: []
     }
   },
   methods: {
@@ -147,26 +146,10 @@ export default {
       })
     },
     addToCart () {
-      // const vm = this
-      // vm.isLoading = true
-      // const productItem = {
-      //   product_id: vm.productId,
-      //   qty: vm.product.num
-      // }
-      // const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
-      // vm.$http.post(api, { data: productItem }).then(res => {
-      //   vm.$bus.$emit('upDataCart')
-      //   vm.$store.dispatch('updateMessage', { message: res.data.message, status: 'success' })
-      //   vm.isLoading = false
-      // })
       this.$store.dispatch('addToCart', { id: this.productId, qty: this.product.num })
     },
     getProducts () {
-      const vm = this
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
-      vm.$http.get(api).then(res => {
-        vm.products = res.data.products
-      })
+      this.$store.dispatch('getProducts')
     },
     getProduct (id) {
       const vm = this
@@ -186,6 +169,9 @@ export default {
     },
     isLoading () {
       return this.$store.state.isLoading
+    },
+    products () {
+      return this.$store.state.products
     }
   },
   created () {

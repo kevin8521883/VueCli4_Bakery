@@ -87,68 +87,24 @@
 export default {
   data () {
     return {
-      products: [],
       category: 'All',
       categoryItem: [],
       keyPoint: '',
-      search: false,
-      myFavorite: JSON.parse(localStorage.getItem('myFavorite')) || [],
-      cart: {
-        carts: {}
-      }
+      search: false
     }
   },
   methods: {
     getProducts () {
-      const vm = this
-      vm.$store.dispatch('updataLoading', true)
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
-      vm.$http.get(api).then(res => {
-        vm.products = res.data.products
-        vm.products.forEach(function (item) {
-          vm.$set(item, 'isLike', false)
-        })
-        vm.products.forEach(function (item) {
-          vm.myFavorite.forEach(function (itemLove) {
-            if (itemLove === item.id) {
-              item.isLike = true
-            }
-          })
-        })
-        vm.$store.dispatch('updataLoading', false)
-      })
+      this.$store.dispatch('getProducts')
     },
     getCart () {
       this.$store.dispatch('getCart')
     },
     addtoCart (id, qty = 1) {
       this.$store.dispatch('addToCart', { id: id, qty: qty })
-      // const vm = this
-      // vm.$store.dispatch('updataLoading', true)
-      // vm.getCart()
-      // vm.cart.carts.filter(function (item) {
-      //   if (item.product_id === id) {
-      //     console.log(item.product_id, ' + ', id)
-      //     qty = item.qty + qty
-      //     const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item.id}`
-      //     vm.$http.delete(api).then(res => {})
-      //   }
-      // })
-      // const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
-      // const productItem = {
-      //   product_id: id,
-      //   qty: qty
-      // }
-      // vm.$http.post(api, { data: productItem }).then(res => {
-      //   if (res.data.success) {
-      //     vm.$bus.$emit('upDataCart')
-      //     vm.$bus.$emit('message:push', res.data.message, 'success')
-      //   } else {
-      //     vm.$bus.$emit('message:push', res.data.message, 'danger')
-      //   }
-      //   vm.getCart()
-      //   vm.$store.dispatch('updataLoading', false)
-      // })
+    },
+    addMyFavorite (id) {
+      this.$store.dispatch('addMyFavorite', id)
     },
     changeCategory (item) {
       const vm = this
@@ -158,24 +114,6 @@ export default {
     searchProducts () {
       const vm = this
       vm.search = true
-    },
-    addMyFavorite (id) {
-      const vm = this
-      vm.products.forEach(function (item) {
-        if (item.id === id) {
-          item.isLike = !item.isLike
-        }
-      })
-      const index = vm.myFavorite.findIndex(function (item) {
-        return item === id
-      })
-      if (index === -1) {
-        vm.myFavorite.push(id)
-      } else {
-        vm.myFavorite.splice(index, 1)
-      }
-      localStorage.setItem('myFavorite', JSON.stringify(vm.myFavorite))
-      vm.$bus.$emit('upDataFavorite', vm.myFavorite)
     }
   },
   computed: {
@@ -207,6 +145,12 @@ export default {
     },
     isLoading () {
       return this.$store.state.isLoading
+    },
+    products () {
+      return this.$store.state.products
+    },
+    myFavorite () {
+      return this.$store.state.myFavorite
     }
   },
   created () {
@@ -216,7 +160,6 @@ export default {
     vm.$bus.$on('goAllProducts', category => {
       vm.category = category
     })
-    vm.$bus.$emit('upDataFavorite', vm.myFavorite)
   }
 }
 </script>

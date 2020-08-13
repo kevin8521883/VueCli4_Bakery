@@ -142,7 +142,6 @@ export default {
     return {
       modalTitle: '新增優惠券',
       Pagination: {},
-      isLoading: false,
       Coupon: {},
       tempCoupon: {
         title: '',
@@ -185,7 +184,7 @@ export default {
     },
     updataCoupon (id) {
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updataLoading', true)
       if (vm.isNew) {
         const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`
         vm.$http.post(api, { data: vm.tempCoupon }).then(response => {
@@ -203,10 +202,10 @@ export default {
     getCoupon (page = 1) {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`
-      vm.isLoading = true
+      vm.$store.dispatch('updataLoading', true)
       vm.$http.get(api).then(response => {
         vm.Coupon = response.data.coupons
-        vm.isLoading = false
+        vm.$store.dispatch('updataLoading', false)
         vm.Pagination = response.data.pagination
       })
     },
@@ -218,7 +217,7 @@ export default {
     delCoupon () {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`
-      vm.isLoading = true
+      vm.$store.dispatch('updataLoading', true)
       vm.$http.delete(api).then(response => {
         vm.getCoupon()
       })
@@ -228,6 +227,11 @@ export default {
   created () {
     const vm = this
     vm.getCoupon()
+  },
+  computed: {
+    isLoading () {
+      return this.$store.state.isLoading
+    }
   }
 }
 </script>

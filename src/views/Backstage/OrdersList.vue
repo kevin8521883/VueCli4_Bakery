@@ -42,8 +42,7 @@ export default {
   data () {
     return {
       Pagination: {},
-      order: {},
-      isLoading: false
+      order: {}
     }
   },
   components: {
@@ -52,12 +51,12 @@ export default {
   methods: {
     getOrder (page = 1) {
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updataLoading', true)
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`
       vm.$http.get(api).then(res => {
         vm.order = res.data.orders
         vm.Pagination = res.data.pagination
-        vm.isLoading = false
+        vm.$store.dispatch('updataLoading', false)
       })
     }
   },
@@ -73,6 +72,9 @@ export default {
         })
       }
       return newOrder
+    },
+    isLoading () {
+      return this.$store.state.isLoading
     }
   },
   created () {

@@ -101,24 +101,22 @@ export default {
     })
   },
   data () {
-    return {
-      isLoading: false,
-      products: [],
-      productId: ''
-    }
+    return {}
   },
   components: {
     banner
   },
   methods: {
     getProducts () {
-      const vm = this
-      vm.isLoading = true
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
-      vm.$http.get(api).then(res => {
-        vm.products = res.data.products
-        vm.isLoading = false
-      })
+      this.$store.dispatch('getProducts')
+    }
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    },
+    isLoading () {
+      return this.$store.state.isLoading
     }
   },
   created () {

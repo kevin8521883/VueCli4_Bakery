@@ -65,11 +65,11 @@ export default {
       const vm = this
       const clipboard = new Clipboard('.cobyCoupon')
       clipboard.on('success', function () {
-        vm.$bus.$emit('message:push', `已複製優惠券：${couponTitle}`, 'success')
+        vm.$store.dispatch('updateMessage', { message: `已複製優惠券：${couponTitle}`, status: 'success' })
         clipboard.destroy()
       })
       clipboard.on('error', function () {
-        vm.$bus.$emit('message:push', '複製失敗請手動複製', 'danger')
+        vm.$store.dispatch('updateMessage', { message: '複製失敗請手動複製', status: 'danger' })
         clipboard.destroy()
       })
     }

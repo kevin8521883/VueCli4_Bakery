@@ -6,14 +6,27 @@ export default new Vuex.Store({
   strict: true,
   state: {
     isLoading: false,
+    products: [],
     messages: [],
+    myFavorite: JSON.parse(localStorage.getItem('myFavorite')) || [],
     cart: {
       carts: {}
-    }
+    },
+    totalQty: 0,
+    sameProduct: false,
+    itemId: ''
   },
   actions: {
     updataLoading (context, status) {
       context.commit('LOADING', status)
+    },
+    getProducts (context) {
+      context.dispatch('updataLoading', true)
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
+      axios.get(api).then(res => {
+        context.commit('GET_PRODUCTS', res)
+        context.dispatch('updataLoading', false)
+      })
     },
     getCart (context) {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
@@ -26,6 +39,7 @@ export default new Vuex.Store({
     delCart (context, item) {
       context.dispatch('updataLoading', true)
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item.id}`
+      console.log(item.id)
       axios.delete(api).then(res => {
         context.dispatch('getCart')
         context.dispatch('updateMessage', { message: '商品已刪除', status: 'danger' })
@@ -48,33 +62,74 @@ export default new Vuex.Store({
     addToCart (context, { id, qty }) {
       context.dispatch('updataLoading', true)
       context.dispatch('getCart')
-      // state.cart.carts.filter(function (item) {
-      //   if (item.product_id === id) {
-      //     qty = item.qty + qty
-      //     const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item.id}`
-      //     axios.$http.delete(api).then(res => {})
-      //   }
-      // })
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
-      const productItem = {
-        product_id: id,
-        qty: qty
-      }
-      axios.post(api, { data: productItem }).then(res => {
-        if (res.data.success) {
-          context.dispatch('getCart')
-          context.dispatch('updateMessage', { message: res.data.message, status: 'success' })
-        } else {
-          context.dispatch('updateMessage', { message: res.data.message, status: 'danger' })
+      context.commit('ADD_SAMEPRODUCT', { id: id, qty: qty })
+      if (context.state.sameProduct) {
+        console.log(context.state.itemId)
+        const delApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${context.state.itemId}`
+        const addApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+        const sameProductItem = {
+          product_id: id,
+          qty: context.state.totalQty
         }
-        context.dispatch('getCart')
-        context.dispatch('updataLoading', false)
-      })
+        axios.all([
+          axios.delete(delApi),
+          axios.post(addApi, { data: sameProductItem })
+        ]).then(axios.spread(function (delRes, addRes) {
+          if (addRes.data.success) {
+            context.dispatch('updateMessage', { message: addRes.data.message, status: 'success' })
+          } else {
+            context.dispatch('updateMessage', { message: addRes.data.message, status: 'danger' })
+          }
+          context.dispatch('getCart')
+          context.dispatch('updataLoading', false)
+        }))
+        // axios.delete(delApi).then(res => {})
+        // axios.post(addApi, { data: sameProductItem }).then(res => {
+        //   if (res.data.success) {
+        //     context.dispatch('updateMessage', { message: res.data.message, status: 'success' })
+        //   } else {
+        //     context.dispatch('updateMessage', { message: res.data.message, status: 'danger' })
+        //   }
+        //   context.dispatch('getCart')
+        //   context.dispatch('updataLoading', false)
+        // })
+      } else {
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+        const productItem = {
+          product_id: id,
+          qty: qty
+        }
+        axios.post(api, { data: productItem }).then(res => {
+          if (res.data.success) {
+            context.dispatch('updateMessage', { message: res.data.message, status: 'success' })
+          } else {
+            context.dispatch('updateMessage', { message: res.data.message, status: 'danger' })
+          }
+          context.dispatch('getCart')
+          context.dispatch('updataLoading', false)
+        })
+      }
+    },
+    addMyFavorite (context, id) {
+      context.commit('ADD_MYFAVORITE', id)
     }
   },
   mutations: {
     LOADING (state, status) {
       state.isLoading = status
+    },
+    GET_PRODUCTS (state, res) {
+      state.products = res.data.products
+      state.products.forEach(function (item) {
+        Vue.set(item, 'isLike', false)
+      })
+      state.products.forEach(function (item) {
+        state.myFavorite.forEach(function (itemLove) {
+          if (itemLove === item.id) {
+            item.isLike = true
+          }
+        })
+      })
     },
     GET_CART (state, payload) {
       state.cart = payload
@@ -93,6 +148,34 @@ export default new Vuex.Store({
       state.messages.forEach((item, i) => {
         if (item.timestamp === timestamp) {
           state.messages.splice(i, 1)
+        }
+      })
+    },
+    ADD_MYFAVORITE (state, id) {
+      state.products.forEach(function (item) {
+        if (item.id === id) {
+          item.isLike = !item.isLike
+        }
+      })
+      const index = state.myFavorite.findIndex(function (item) {
+        return item === id
+      })
+      if (index === -1) {
+        state.myFavorite.push(id)
+      } else {
+        state.myFavorite.splice(index, 1)
+      }
+      localStorage.setItem('myFavorite', JSON.stringify(state.myFavorite))
+    },
+    ADD_SAMEPRODUCT (state, payload) {
+      state.totalQty = 0
+      state.itemId = ''
+      state.sameProduct = false
+      state.cart.carts.filter(function (item) {
+        if (item.product_id === payload.id) {
+          state.itemId = item.id
+          state.sameProduct = true
+          state.totalQty = payload.qty + item.qty
         }
       })
     }

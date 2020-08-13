@@ -52,10 +52,10 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/admin/signin`
       vm.$http.post(api, vm.user).then(response => {
         if (response.data.success) {
-          vm.$bus.$emit('message:push', response.data.message, 'success')
+          vm.$store.dispatch('updateMessage', { message: response.data.message, status: 'success' })
           vm.$router.push('/admin/productslist')
         } else {
-          vm.$bus.$emit('message:push', '帳號或密碼錯誤', 'danger')
+          vm.$store.dispatch('updateMessage', { message: '帳號或密碼錯誤', status: 'danger' })
         }
       })
     }

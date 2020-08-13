@@ -225,17 +225,18 @@ export default {
     },
     changeCartNum (orderId, id, e) {
       const vm = this
-      this.$store.dispatch('updataLoading', true)
+      vm.$store.dispatch('updataLoading', true)
       const delApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${orderId}`
       const addApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
       const productItem = {
         product_id: id,
-        qty: e.target.value
+        qty: parseInt(e.target.value)
       }
       vm.$http.delete(delApi).then(res => {
         vm.$http.post(addApi, { data: productItem }).then(res => {
           vm.getCart()
-          this.$store.dispatch('updataLoading', false)
+          vm.$store.dispatch('updataLoading', false)
+          vm.$store.dispatch('updateMessage', { message: '變更商品成功', status: 'success' })
         })
       })
     },

@@ -58,53 +58,17 @@
 <script>
 export default {
   data () {
-    return {
-      // isLoading: false,
-      favoriteId: [],
-      products: [],
-      myFavorite: JSON.parse(localStorage.getItem('myFavorite')) || []
-    }
+    return {}
   },
   methods: {
     getProducts () {
-      const vm = this
-      this.$store.dispatch('updataLoading', true)
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
-      vm.$http.get(api).then(res => {
-        vm.products = res.data.products
-        vm.products.forEach(function (item) {
-          vm.$set(item, 'isLike', false)
-        })
-        vm.products.forEach(function (item) {
-          vm.myFavorite.forEach(function (itemLove) {
-            if (itemLove === item.id) {
-              item.isLike = true
-            }
-          })
-        })
-        this.$store.dispatch('updataLoading', false)
-      })
+      this.$store.dispatch('getProducts')
     },
     addToCart (id, qty = 1) {
       this.$store.dispatch('addToCart', { id: id, qty: qty })
     },
     addMyFavorite (id) {
-      const vm = this
-      vm.products.forEach(function (item) {
-        if (item.id === id) {
-          item.isLike = !item.isLike
-        }
-      })
-      const index = vm.myFavorite.findIndex(function (item) {
-        return item === id
-      })
-      if (index === -1) {
-        vm.myFavorite.push(id)
-      } else {
-        vm.myFavorite.splice(index, 1)
-      }
-      localStorage.setItem('myFavorite', JSON.stringify(vm.myFavorite))
-      vm.$bus.$emit('upDataFavorite', vm.myFavorite)
+      this.$store.dispatch('addMyFavorite', id)
     }
   },
   computed: {
@@ -116,13 +80,16 @@ export default {
     },
     isLoading () {
       return this.$store.state.isLoading
+    },
+    products () {
+      return this.$store.state.products
+    },
+    myFavorite () {
+      return this.$store.state.myFavorite
     }
   },
   created () {
     const vm = this
-    vm.$bus.$on('upDataFavorite', data => {
-      vm.favoriteId = data
-    })
     vm.getProducts()
   }
 }

@@ -227,7 +227,6 @@ export default {
       modalTitle: '建立新產品',
       tempProduct: {},
       isNew: false,
-      isLoading: false,
       fileUploading: false,
       Pagination: {}
     }
@@ -239,10 +238,10 @@ export default {
     getProducts (page = 1) {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`
-      vm.isLoading = true
+      vm.$store.dispatch('updataLoading', true)
       vm.$http.get(api).then(response => {
         vm.products = response.data.products
-        vm.isLoading = false
+        vm.$store.dispatch('updataLoading', false)
         vm.Pagination = response.data.pagination
       })
     },
@@ -281,7 +280,7 @@ export default {
     },
     deldataProduct () {
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updataLoading', true)
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
       vm.$http.delete(api).then(response => {
         if (response.data.success) {
@@ -308,7 +307,7 @@ export default {
           if (response.data.success) {
             vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl)
           } else {
-            vm.$bus.$emit('message:push', response.data.message, 'danger')
+            vm.$store.dispatch('updateMessage', { message: response.data.message, status: 'danger' })
           }
           document.getElementById(id).value = ''
           vm.fileUploading = false
@@ -318,6 +317,11 @@ export default {
   created () {
     const vm = this
     vm.getProducts()
+  },
+  computed: {
+    isLoading () {
+      return this.$store.state.isLoading
+    }
   }
 }
 </script>
