@@ -240,6 +240,7 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`
       vm.$store.dispatch('updataLoading', true)
       vm.$http.get(api).then(response => {
+        console.log(response)
         vm.products = response.data.products
         vm.$store.dispatch('updataLoading', false)
         vm.Pagination = response.data.pagination

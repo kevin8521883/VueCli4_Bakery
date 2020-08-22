@@ -47,22 +47,22 @@
             <div class="swiper-wrapper">
               <div class="swiper-slide p-2" v-for="(item) in products" :key="item.id">
                 <router-link
-                  class="card shadow-sm card-round text-decoration-none"
+                  class="card shadow-sm card-round text-decoration-none border-0"
                   :to="{path : `/product/${item.id}` }"
                 >
                   <div class="pic">
                     <div :style="{backgroundImage :`url(${item.imageUrl})`}" class="pic-enlarge"></div>
                   </div>
                   <div class="card-body">
-                    <span class="badge badge-secondary float-right ml-2">{{ item.category }}</span>
+                    <span class="badge badge-secondary mb-2">{{ item.category }}</span>
                     <h5 class="card-title text-dark">{{ item.title }}</h5>
                   </div>
                 </router-link>
               </div>
             </div>
           </div>
-          <div class="swiper-button swiper-button-left fas fa-angle-double-left fa-2x"></div>
-          <div class="swiper-button swiper-button-right fas fa-angle-double-right fa-2x"></div>
+          <div class="swiper-button swiper-button-left fas fa-chevron-circle-left fa-2x text-white"></div>
+          <div class="swiper-button swiper-button-right fas fa-chevron-circle-right fa-2x text-white"></div>
         </div>
       </div>
     </section>

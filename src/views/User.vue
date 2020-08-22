@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="d-flex flex-column min-height">
     <UserHeader></UserHeader>
     <Alert></Alert>
     <router-view></router-view>
     <Cart></Cart>
-    <UserFooter></UserFooter>
+    <UserFooter class="mt-auto"></UserFooter>
   </div>
 </template>
 <script>

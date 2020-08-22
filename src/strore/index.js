@@ -71,28 +71,13 @@ export default new Vuex.Store({
           product_id: id,
           qty: context.state.totalQty
         }
-        axios.all([
-          axios.delete(delApi),
-          axios.post(addApi, { data: sameProductItem })
-        ]).then(axios.spread(function (delRes, addRes) {
-          if (addRes.data.success) {
-            context.dispatch('updateMessage', { message: addRes.data.message, status: 'success' })
-          } else {
-            context.dispatch('updateMessage', { message: addRes.data.message, status: 'danger' })
-          }
+        axios.delete(delApi).then(() => {
+          return axios.post(addApi, { data: sameProductItem })
+        }).then((item) => {
+          context.dispatch('updateMessage', { message: item.data.message, status: 'success' })
           context.dispatch('getCart')
           context.dispatch('updataLoading', false)
-        }))
-        // axios.delete(delApi).then(res => {})
-        // axios.post(addApi, { data: sameProductItem }).then(res => {
-        //   if (res.data.success) {
-        //     context.dispatch('updateMessage', { message: res.data.message, status: 'success' })
-        //   } else {
-        //     context.dispatch('updateMessage', { message: res.data.message, status: 'danger' })
-        //   }
-        //   context.dispatch('getCart')
-        //   context.dispatch('updataLoading', false)
-        // })
+        })
       } else {
         const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
         const productItem = {

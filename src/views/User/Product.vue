@@ -62,7 +62,7 @@
               ></div>
             </div>
             <div class="card-body">
-              <span class="badge badge-secondary float-right ml-2">{{ item.category }}</span>
+              <span class="badge badge-secondary mb-2">{{ item.category }}</span>
               <h5 class="card-title">{{ item.title }}</h5>
             </div>
           </a>
@@ -83,15 +83,15 @@
                   ></div>
                 </div>
                 <div class="card-body">
-                  <span class="badge badge-secondary float-right ml-2">{{ item.category }}</span>
+                  <span class="badge badge-secondary mb-2">{{ item.category }}</span>
                   <h5 class="card-title">{{ item.title }}</h5>
                 </div>
               </a>
             </div>
           </div>
         </div>
-        <div class="swiper-button swiper-button-left fas fa-angle-double-left fa-2x"></div>
-        <div class="swiper-button swiper-button-right fas fa-angle-double-right fa-2x"></div>
+        <div class="swiper-button swiper-button-left fas fa-chevron-circle-left fa-2x text-primary"></div>
+        <div class="swiper-button swiper-button-right fas fa-chevron-circle-right fa-2x text-primary"></div>
       </div>
     </div>
   </div>

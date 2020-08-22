@@ -64,13 +64,37 @@
               </tbody>
               <tfoot>
                 <tr v-if="cart.final_total==cart.total">
-                  <td colspan="6" class="text-right">
+                  <td colspan="3">
+                    <div class="input-group input-group-sm">
+                      <input type="text" class="form-control" v-model="coupons.code" placeholder="請輸入優惠碼" />
+                      <div class="input-group-append">
+                        <button
+                        class="btn btn-outline-secondary"
+                        @click.prevent="useCoupons"
+                        type="button"
+                        >套用優惠碼</button>
+                      </div>
+                    </div>
+                  </td>
+                  <td colspan="3" class="text-right align-middle text-nowrap">
                     總計：
                     <span>{{ cart.total | currency }}</span>
                   </td>
                 </tr>
                 <tr v-if="cart.final_total!==cart.total">
-                  <td colspan="6" class="text-right text-secondary">
+                  <td colspan="3" class="align-middle">
+                    <div class="input-group input-group-sm">
+                      <input type="text" class="form-control" v-model="coupons.code" placeholder="請輸入優惠碼" />
+                      <div class="input-group-append">
+                        <button
+                        class="btn btn-outline-secondary"
+                        @click.prevent="useCoupons"
+                        type="button"
+                        >套用優惠碼</button>
+                      </div>
+                    </div>
+                  </td>
+                  <td colspan="3" class="text-right text-secondary align-middle text-nowrap">
                     折扣前總計：
                     <span>{{ cart.total | currency }}</span>
                   </td>
@@ -84,7 +108,7 @@
               </tfoot>
             </table>
             </div>
-            <div class="input-group mb-3 input-group-sm">
+            <!-- <div class="input-group mb-3 input-group-sm">
               <input type="text" class="form-control" v-model="coupons.code" placeholder="請輸入優惠碼" />
               <div class="input-group-append">
                 <button
@@ -93,7 +117,7 @@
                   type="button"
                 >套用優惠碼</button>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="my-5 row justify-content-center">
@@ -246,9 +270,9 @@ export default {
       vm.$http.post(api, { data: vm.coupons }).then(res => {
         if (res.data.success) {
           vm.getCart()
-          vm.$bus.$emit('message:push', res.data.message, 'success')
+          vm.$store.dispatch('updateMessage', { message: res.data.message, status: 'success' })
         } else {
-          vm.$bus.$emit('message:push', res.data.message, 'danger')
+          vm.$store.dispatch('updateMessage', { message: res.data.message, status: 'danger' })
           vm.coupons.code = ''
         }
       })

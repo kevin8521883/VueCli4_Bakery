@@ -7,13 +7,13 @@
             <div class="h4 pb-3">關於我們</div>
             <ul>
               <li class="h6">
-                <a href="https://github.com/kevin8521883/bakery" class="text-dark h6">關於Bakery</a>
+                <a href="https://github.com/kevin8521883/VueCli4_Bakery" class="text-dark h6">關於Bakery</a>
               </li>
               <li class="h6">
-                <a href="https://github.com/kevin8521883/bakery" class="text-dark h6">隱私權政策</a>
+                <a href="https://github.com/kevin8521883/VueCli4_Bakery" class="text-dark h6">隱私權政策</a>
               </li>
               <li class="h6">
-                <a href="https://github.com/kevin8521883/bakery" class="text-dark h6">服務條款</a>
+                <a href="https://github.com/kevin8521883/VueCli4_Bakery" class="text-dark h6">服務條款</a>
               </li>
             </ul>
           </div>
@@ -21,13 +21,13 @@
             <div class="h4 pb-3">關注我們</div>
             <ul>
               <li class="h6">
-                <a href="https://github.com/kevin8521883/bakery" class="text-dark">
+                <a href="https://github.com/kevin8521883/VueCli4_Bakery" class="text-dark">
                   <i class="fab fa-facebook-square"></i>
                   Facebook
                 </a>
               </li>
               <li class="h6">
-                <a href="https://github.com/kevin8521883/bakery" class="text-dark">
+                <a href="https://github.com/kevin8521883/VueCli4_Bakery" class="text-dark">
                   <i class="fab fa-instagram"></i>
                   Instagram
                 </a>

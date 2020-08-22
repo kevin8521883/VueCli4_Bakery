@@ -2,6 +2,9 @@ body{
   font-family: '微軟正黑體';
   font-size: .875rem;
 }
+.min-height{
+  min-height: 100vh;
+}
 a:hover {
   cursor: pointer;
 }
