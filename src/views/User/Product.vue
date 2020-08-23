@@ -72,24 +72,22 @@
         class="product-wrap mx-auto"
         :class="{'d-none': filterProduct.length==0,'multiple-swiper':filterProduct.length>1 && filterProduct.length<=4 , 'single-swiper':filterProduct.length==1}"
       >
-        <div class="swiper-container row">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide p-2" v-for="(item) in filterProduct" :key="item.id">
-              <a class="card shadow-sm card-round" @click="getProduct(item.id)">
-                <div class="pic" >
-                  <div
-                    :style="{backgroundImage :`url(${item.imageUrl})`}"
-                    class="pic-enlarge"
-                  ></div>
-                </div>
-                <div class="card-body">
-                  <span class="badge badge-secondary mb-2">{{ item.category }}</span>
-                  <h5 class="card-title">{{ item.title }}</h5>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
+      <swiper :options="swiperOption">
+        <swiper-slide class="p-2" v-for="(item) in filterProduct" :key="item.id">
+            <a class="card shadow-sm card-round" @click="getProduct(item.id)">
+              <div class="pic" >
+                <div
+                  :style="{backgroundImage :`url(${item.imageUrl})`}"
+                  class="pic-enlarge"
+                ></div>
+              </div>
+              <div class="card-body">
+                <span class="badge badge-secondary mb-2">{{ item.category }}</span>
+                <h5 class="card-title">{{ item.title }}</h5>
+              </div>
+            </a>
+        </swiper-slide>
+      </swiper>
         <div class="swiper-button swiper-button-left fas fa-chevron-circle-left fa-2x text-primary"></div>
         <div class="swiper-button swiper-button-right fas fa-chevron-circle-right fa-2x text-primary"></div>
       </div>
@@ -97,40 +95,34 @@
   </div>
 </template>
 <script>
-import Swiper from 'swiper'
 import 'swiper/css/swiper.css'
-import $ from 'jquery'
 
 export default {
-  mounted () {
-    /* eslint-disable no-new */
-    new Swiper('.swiper-container', {
-      observer: true,
-      loop: true,
-      observeParents: true,
-      slidesPerView: 1,
-      breakpoints: {
-        540: {
-          slidesPerView: 2
-        },
-        768: {
-          slidesPerView: 3
-        },
-        992: {
-          slidesPerView: 4
-        }
-      },
-      navigation: {
-        nextEl: '.swiper-button-right',
-        prevEl: '.swiper-button-left'
-      }
-    })
-  },
   data () {
     return {
+      swiperOption: {
+        observer: true,
+        loop: true,
+        observeParents: true,
+        slidesPerView: 1,
+        breakpoints: {
+          540: {
+            slidesPerView: 2
+          },
+          768: {
+            slidesPerView: 3
+          },
+          992: {
+            slidesPerView: 4
+          }
+        },
+        navigation: {
+          nextEl: '.swiper-button-right',
+          prevEl: '.swiper-button-left'
+        }
+      },
       productId: '',
       product: {}
-      // products: []
     }
   },
   methods: {
@@ -141,7 +133,6 @@ export default {
       vm.$http.get(api).then(res => {
         vm.product = res.data.product
         vm.product.num = 1
-        $('html, body').animate({ scrollTop: 0 }, 500)
         this.$store.dispatch('updataLoading', false)
       })
     },

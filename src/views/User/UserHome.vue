@@ -43,24 +43,22 @@
       <div class="container py-5" data-aos="fade-up">
         <p class="h3 text-center">熱門產品</p>
         <div class="product-wrap mx-auto">
-          <div class="swiper-container swiper-product row">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide p-2" v-for="(item) in products" :key="item.id">
-                <router-link
-                  class="card shadow-sm card-round text-decoration-none border-0"
-                  :to="{path : `/product/${item.id}` }"
-                >
-                  <div class="pic">
-                    <div :style="{backgroundImage :`url(${item.imageUrl})`}" class="pic-enlarge"></div>
-                  </div>
-                  <div class="card-body">
-                    <span class="badge badge-secondary mb-2">{{ item.category }}</span>
-                    <h5 class="card-title text-dark">{{ item.title }}</h5>
-                  </div>
-                </router-link>
-              </div>
-            </div>
-          </div>
+          <swiper :options="swiperOption">
+            <swiper-slide class="p-2" v-for="(item) in products" :key="item.id">
+              <router-link
+                class="card shadow-sm card-round text-decoration-none border-0"
+                :to="{path : `/product/${item.id}` }"
+              >
+                <div class="pic">
+                  <div :style="{backgroundImage :`url(${item.imageUrl})`}" class="pic-enlarge"></div>
+                </div>
+                <div class="card-body">
+                  <span class="badge badge-secondary mb-2">{{ item.category }}</span>
+                  <h5 class="card-title text-dark">{{ item.title }}</h5>
+                </div>
+              </router-link>
+            </swiper-slide>
+          </swiper>
           <div class="swiper-button swiper-button-left fas fa-chevron-circle-left fa-2x text-white"></div>
           <div class="swiper-button swiper-button-right fas fa-chevron-circle-right fa-2x text-white"></div>
         </div>
@@ -70,38 +68,35 @@
 </template>
 <script>
 import banner from '@/components/Banner.vue'
-import Swiper from 'swiper'
 export default {
-  mounted () {
-    /* eslint-disable no-new */
-    new Swiper('.swiper-product', {
-      observer: true,
-      observeParents: true,
-      autoplay: {
-        delay: 3000
-      },
-      loop: true,
-      speed: 1000,
-      slidesPerView: 1,
-      breakpoints: {
-        540: {
-          slidesPerView: 2
-        },
-        768: {
-          slidesPerView: 3
-        },
-        992: {
-          slidesPerView: 4
-        }
-      },
-      navigation: {
-        nextEl: '.swiper-button-right',
-        prevEl: '.swiper-button-left'
-      }
-    })
-  },
   data () {
-    return {}
+    return {
+      swiperOption: {
+        observer: true,
+        observeParents: true,
+        autoplay: {
+          delay: 3000
+        },
+        loop: true,
+        speed: 1000,
+        slidesPerView: 1,
+        breakpoints: {
+          540: {
+            slidesPerView: 2
+          },
+          768: {
+            slidesPerView: 3
+          },
+          992: {
+            slidesPerView: 4
+          }
+        },
+        navigation: {
+          nextEl: '.swiper-button-right',
+          prevEl: '.swiper-button-left'
+        }
+      }
+    }
   },
   components: {
     banner

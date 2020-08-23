@@ -108,16 +108,6 @@
               </tfoot>
             </table>
             </div>
-            <!-- <div class="input-group mb-3 input-group-sm">
-              <input type="text" class="form-control" v-model="coupons.code" placeholder="請輸入優惠碼" />
-              <div class="input-group-append">
-                <button
-                  class="btn btn-outline-secondary"
-                  @click.prevent="useCoupons"
-                  type="button"
-                >套用優惠碼</button>
-              </div>
-            </div> -->
           </div>
         </div>
         <div class="my-5 row justify-content-center">
