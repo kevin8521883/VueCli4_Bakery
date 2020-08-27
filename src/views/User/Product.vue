@@ -28,7 +28,7 @@
           </select>
           <div class="mt-3 text-right">
             <span class="text-secondary h6 mr-3">小計 {{ product.price * product.num | currency }}</span>
-            <button type="button" class="btn btn-outline-danger" @click.prevent="addToCart">
+            <button type="button" class="btn btn-outline-primary" @click.prevent="addToCart">
               <i class="fas fa-cart-plus"></i>
               加到購物車
             </button>
@@ -47,8 +47,8 @@
       <div
         class="row"
         :class="{
-          'd-none': filterProduct.length==0,
-          'single-product':filterProduct.length==1,
+          'd-none': filterProduct.length===0,
+          'single-product':filterProduct.length===1,
           'multiple-product':filterProduct.length>1 && filterProduct.length <= 4,
           'more-product' : filterProduct.length>4
           }"
@@ -70,7 +70,7 @@
       </div>
       <div
         class="product-wrap mx-auto"
-        :class="{'d-none': filterProduct.length==0,'multiple-swiper':filterProduct.length>1 && filterProduct.length<=4 , 'single-swiper':filterProduct.length==1}"
+        :class="{'d-none': filterProduct.length===0,'multiple-swiper':filterProduct.length>1 && filterProduct.length<=4 , 'single-swiper':filterProduct.length===1}"
       >
       <swiper :options="swiperOption">
         <swiper-slide class="p-2" v-for="(item) in filterProduct" :key="item.id">

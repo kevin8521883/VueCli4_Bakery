@@ -1,13 +1,13 @@
 .coupon{
   .left{
     width: 30%;
-    background-color: #f76260;
+    background-color: $primary;
     &::before{
       content: '';
       position: absolute !important;
       height: 100%;
       width: 6px;
-      background-image: radial-gradient(circle at 0px 10px, white 6px, #f76260 6px);
+      background-image: radial-gradient(circle at 0px 10px, white 6px, $primary 6px);
       background-size: 6px 20px;
     }
   }

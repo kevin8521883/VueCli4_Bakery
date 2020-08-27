@@ -2,7 +2,7 @@
   <div class="sticky-top">
     <nav class="navbar navbar-expand-lg bg-white border-bottom">
       <div class="container">
-        <router-link to="/">
+        <router-link class="home" to="/">
           <img src="https://upload.cc/i1/2020/07/11/WCPqay.png" alt height="40" />
           <h1 class="sr-only">Backery</h1>
         </router-link>
@@ -38,10 +38,19 @@
   </div>
 </template>
 <script>
+import $ from 'jquery'
 export default {
   data () {
-    return {
-    }
+    return {}
+  },
+  created () {
+    $(function () {
+      if ($(window).width() < 992) {
+        $('.navbar .nav-link').on('click', function () {
+          $('.navbar-toggler').click()
+        })
+      }
+    })
   }
 }
 </script>

@@ -3,7 +3,7 @@
     <footer class="footer text-center py-5 bg-dessert">
       <div class="container">
         <div class="row">
-          <div class="col-6 col-md-4 mb-3">
+          <div class="col-12 col-md-4 mb-3">
             <div class="h4 pb-3">關於我們</div>
             <ul>
               <li class="h6">
@@ -17,7 +17,7 @@
               </li>
             </ul>
           </div>
-          <div class="col-6 col-md-4 mb-3">
+          <div class="col-12 col-md-4 mb-3">
             <div class="h4 pb-3">關注我們</div>
             <ul>
               <li class="h6">
@@ -34,7 +34,7 @@
               </li>
             </ul>
           </div>
-          <div class="col-6 col-md-4 mb-3">
+          <div class="col-12 col-md-4 mb-3">
             <div class="h4 pb-3">客服專線</div>
             <ul>
               <li class="h6">

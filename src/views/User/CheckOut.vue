@@ -6,14 +6,14 @@
         <div class="col-md-9">
           <div class="container">
             <div class="row justify-content-around">
-              <div class="col-md-3 p-2 rounded-pill alert-secondary text-center">1.填寫訂購資料</div>
+              <div class="col-md-3 p-2 rounded-pill border border-primary text-primary text-center">1.填寫訂購資料</div>
               <div
-                class="col-md-3 p-2 rounded-pill alert-secondary text-center my-3 my-md-0"
-                :class="{'alert-success':!order.is_paid}"
+                class="col-md-3 p-2 rounded-pill border border-primary text-primary text-center my-3 my-md-0"
+                :class="{'alert-primary' :!order.is_paid}"
               >2.金流付款</div>
               <div
-                class="col-md-3 p-2 rounded-pill alert-secondary text-center"
-                :class="{'alert-success':order.is_paid}"
+                class="col-md-3 p-2 rounded-pill border border-primary text-primary text-center"
+                :class="{'alert-primary':order.is_paid}"
               >3.訂單完成</div>
             </div>
           </div>

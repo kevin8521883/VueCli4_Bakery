@@ -41,10 +41,10 @@
                 >{{ item.price | currency }}</div>
               </div>
               <div class="d-flex justify-content-between align-items-baseline">
-                <a class="text-danger" @click.prevent="addMyFavorite(item.id)" title="加入最愛">
+                <a class="text-primary" @click.prevent="addMyFavorite(item.id)" title="加入最愛">
                   <i class="far fa-heart fa-lg" :class="{'fas fa-heart fa-lg':item.isLike}"></i>
                 </a>
-                <a class="text-danger" @click.prevent="addToCart(item.id)" title="加入購物車">
+                <a class="text-primary" @click.prevent="addToCart(item.id)" title="加入購物車">
                   <i class="fas fa-cart-plus fa-2x"></i>
                 </a>
               </div>

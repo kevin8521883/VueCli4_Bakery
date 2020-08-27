@@ -7,24 +7,23 @@
           <div class="col-md-9">
             <div class="container">
               <div class="row justify-content-around">
-                <div class="col-md-3 p-2 rounded-pill alert-success text-center">1.填寫訂購資料</div>
+                <div class="col-md-3 p-2 rounded-pill alert-primary border border-primary text-primary text-center">1.填寫訂購資料</div>
                 <div
-                  class="col-md-3 p-2 rounded-pill alert-secondary text-center my-3 my-md-0"
+                  class="col-md-3 p-2 rounded-pill border border-primary text-primary text-center my-3 my-md-0"
                 >2.金流付款</div>
-                <div class="col-md-3 p-2 rounded-pill alert-secondary text-center">3.訂單完成</div>
+                <div class="col-md-3 p-2 rounded-pill border border-primary text-primary text-center">3.訂單完成</div>
               </div>
             </div>
           </div>
           <div class="col-md-9 mt-5">
-            <div class="table-responsive">
             <table class="table">
               <thead>
                 <th></th>
                 <th width="75" class="d-none d-md-table-cell"></th>
-                <th class="text-nowrap">品名</th>
-                <th class="text-nowrap">數量</th>
-                <th class="text-nowrap">單價</th>
-                <th class="text-nowrap">總價格</th>
+                <th class="">品名</th>
+                <th class="">數量</th>
+                <th class="">單價</th>
+                <th class="">總價格</th>
               </thead>
               <tbody>
                 <tr v-for="item in cart.carts" :key="item.id">
@@ -42,14 +41,14 @@
                       <img height="50" :src="item.product.imageUrl" alt />
                     </router-link>
                   </td>
-                  <td class="text-nowrap align-middle">
+                  <td class=" align-middle">
                     <router-link
                       :to="{path: `/product/${item.product.id}`}"
                       class="text-dark"
                     >{{ item.product.title }}</router-link>
                     <div class="text-success" v-if="item.coupon">已套用優惠券</div>
                   </td>
-                  <td class="text-nowrap align-middle">
+                  <td class=" align-middle">
                     <select
                      :value="item.qty"
                       @change="e => changeCartNum(item.id, item.product_id, e)"
@@ -58,12 +57,12 @@
                     </select>
                     /{{ item.product.unit }}
                   </td>
-                  <td class="text-nowrap align-middle">{{ item.product.price | currency }}</td>
-                  <td class="text-nowrap align-middle">{{ item.product.price * item.qty|currency }}</td>
+                  <td class=" align-middle">{{ item.product.price | currency }}</td>
+                  <td class=" align-middle">{{ item.product.price * item.qty|currency }}</td>
                 </tr>
               </tbody>
               <tfoot>
-                <tr v-if="cart.final_total==cart.total">
+                <tr v-if="cart.final_total===cart.total">
                   <td colspan="3">
                     <div class="input-group input-group-sm">
                       <input type="text" class="form-control" v-model="coupons.code" placeholder="請輸入優惠碼" />
@@ -76,7 +75,7 @@
                       </div>
                     </div>
                   </td>
-                  <td colspan="3" class="text-right align-middle text-nowrap">
+                  <td colspan="3" class="text-right align-middle ">
                     總計：
                     <span>{{ cart.total | currency }}</span>
                   </td>
@@ -94,7 +93,7 @@
                       </div>
                     </div>
                   </td>
-                  <td colspan="3" class="text-right text-secondary align-middle text-nowrap">
+                  <td colspan="3" class="text-right text-secondary align-middle ">
                     折扣前總計：
                     <span>{{ cart.total | currency }}</span>
                   </td>
@@ -107,7 +106,6 @@
                 </tr>
               </tfoot>
             </table>
-            </div>
           </div>
         </div>
         <div class="my-5 row justify-content-center">
@@ -197,7 +195,7 @@
           </form>
         </div>
       </div>
-      <div v-if="cart.final_total==0">
+      <div v-if="cart.final_total===0">
         <div
           class="cart-none text-center d-flex justify-content-center align-items-center"
         >
