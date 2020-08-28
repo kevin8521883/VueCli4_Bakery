@@ -1,5 +1,5 @@
 # 甜點電商網站 [Bakery](https://kevin8521883.github.io/VueCli4_Bakery/#/)
-# 功能
+
 前台：
 * 產品展示
 * 產品收藏
