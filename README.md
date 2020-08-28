@@ -1,7 +1,5 @@
-# 甜點電商網站 Bakery
-
-## 功能
-
+# 甜點電商網站 [Bakery](https://kevin8521883.github.io/VueCli4_Bakery/#/)
+# 功能
 前台：
 * 產品展示
 * 產品收藏
@@ -13,7 +11,6 @@
 * 產品管理
 * 訂單列表管理
 * 優惠碼管理
-
 ### 使用技術
 * Vue.js
 * Vue Cli 4
