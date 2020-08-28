@@ -23,4 +23,5 @@
   * vue-awesome-swiper
   * vue-loading-overlay
   * vee-validate
+  * aos
   * clipboard
