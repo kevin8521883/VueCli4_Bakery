@@ -1,24 +1,29 @@
-# store
+# 甜點電商網站 Bakery
 
-## Project setup
-```
-npm install
-```
+## 功能
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+前台：
+* 產品展示
+* 產品收藏
+* 加入購物車
+* 搜尋產品及分類
+* 下單結帳
 
-### Compiles and minifies for production
-```
-npm run build
-```
+後台：
+* 產品管理
+* 訂單列表管理
+* 優惠碼管理
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 使用技術
+* Vue.js
+* Vue Cli 4
+* Vue Router 模擬路由
+* Vuex 統一管理狀態
+* ESLint 程式碼管理
+* Bootstrap 4 及 SCSS 的應用
+* 第三方 Plugin 的運用
+  * vue-axios
+  * vue-awesome-swiper
+  * vue-loading-overlay
+  * vee-validate
+  * clipboard
