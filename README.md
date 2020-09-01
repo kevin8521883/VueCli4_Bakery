@@ -20,7 +20,6 @@
 * Vuex 統一管理狀態
 * ESLint 程式碼管理
 * Bootstrap 4 及 SCSS 的應用
-* webpack
 * 第三方 Plugin 的運用
   * vue-axios
   * vue-awesome-swiper
